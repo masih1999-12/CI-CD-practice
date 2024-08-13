@@ -43,9 +43,9 @@ jobs:
         run: echo "Deploying..."
       - name: download-artifact
         uses: actions/download-artifact@v4
-        with:
-          name: my-artifact
+        # with:
+        #   name: my-artifact
       - name: Display structure of downloaded files
         run: |
           ls -R
-          cat extra-file.txt | echo
+          echo < extra-file.txt
