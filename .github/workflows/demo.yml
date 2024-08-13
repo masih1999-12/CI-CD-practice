@@ -48,4 +48,4 @@ jobs:
       - name: Display structure of downloaded files
         run: |
           ls -R
-          echo < extra-file.txt
+          echo "$(<extra-file.txt )"
