@@ -31,7 +31,8 @@ jobs:
         id: publish
         run: |
           echo howdy > extra-file.txt
-          find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
+          # find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
+          find dist/assets/*.js -type f -execdir echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
       - name: upload-artifact
         uses: actions/upload-artifact@v4
         with:
