@@ -18,6 +18,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.script-file  }}
     steps:
       - name: Get code
         uses: actions/checkout@v4
@@ -25,8 +27,11 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
-      - name: create text
-        run: echo howdy > extra-file.txt
+      - name: create texts
+        id: publish
+        run: |
+          echo howdy > extra-file.txt
+          find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
       - name: upload-artifact
         uses: actions/upload-artifact@v4
         with:
@@ -49,3 +54,5 @@ jobs:
         run: |
           ls -R
           echo "$(<./my-artifact/extra-file.txt )"
+      - name: output file name
+        run: echo "${{ needs.build.outputs.script-file }}"
